@@ -11,6 +11,9 @@ option(CABLE_MPI "Build the MPI executable" OFF)
 # third party libs
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(NETCDF REQUIRED IMPORTED_TARGET "netcdf-fortran")
+if(CABLE_MPI)
+    find_package(MPI REQUIRED)
+endif()
 
 set(CABLE_INTEL_Fortran_FLAGS -fp-model precise)
 set(CABLE_INTEL_Fortran_FLAGS_DEBUG -O0 -g -traceback -fpe0)
@@ -166,6 +169,7 @@ endif()
 target_link_libraries(
     cable
     PkgConfig::NETCDF
+    "$<$<BOOL:${CABLE_MPI}>:MPI::MPI_Fortran>"
 )
 
 install(TARGETS cable RUNTIME)

@@ -68,7 +68,7 @@ else
 fi
 if [[ -n $mpi ]]; then
     cmake_args+=(-DCABLE_MPI="ON")
-    cmake_args+=(-DCMAKE_Fortran_COMPILER="mpif90")
+    cmake_args+=(-DMPI_Fortran_COMPILER="mpif90")
 fi
 
 cmake_build_args=()
