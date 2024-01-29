@@ -8,7 +8,6 @@ Build script wrapper around CMake.
 
 Options:
       --clean   Delete build directory before invoking CMake.
-      --mpi     Compile MPI executable.
   -d, --debug   Compile in debug mode.
   -v, --verbose Enable verbose output when building the project.
   -h, --help    Show this screen.
@@ -21,9 +20,6 @@ while [ $# -gt 0 ]; do
     case $1 in
         --clean)
             clean=1
-            ;;
-        --mpi)
-            mpi=1
             ;;
         -d|--debug)
             debug=1
@@ -47,13 +43,11 @@ if hostname -f | grep gadi.nci.org.au > /dev/null; then
     module purge
     module add cmake/3.24.2
     module add intel-compiler/2019.5.281
+    module add intel-mpi/2019.5.281
     module add netcdf/4.6.3
     # This is required so that the netcdf-fortran library is discoverable by
     # pkg-config:
     prepend_path PKG_CONFIG_PATH "${NETCDF_BASE}/lib/Intel/pkgconfig"
-    if [[ -n $mpi ]]; then
-        module add intel-mpi/2019.5.281
-    fi
 fi
 
 if [[ -n $clean ]]; then
@@ -66,10 +60,8 @@ if [[ -n $debug ]]; then
 else
     cmake_args+=(-DCMAKE_BUILD_TYPE=Release)
 fi
-if [[ -n $mpi ]]; then
-    cmake_args+=(-DCABLE_MPI="ON")
-    cmake_args+=(-DMPI_Fortran_COMPILER="mpif90")
-fi
+
+cmake_args+=(-DMPI_Fortran_COMPILER="mpif90")
 
 cmake_build_args=()
 if [[ -n $verbose ]]; then
