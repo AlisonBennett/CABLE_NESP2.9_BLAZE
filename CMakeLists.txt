@@ -10,11 +10,6 @@ project(
 find_package(MPI REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(NETCDF REQUIRED IMPORTED_TARGET "netcdf-fortran")
-set(
-    CABLE_LINK_LIBRARIES
-    PkgConfig::NETCDF
-    MPI::MPI_Fortran
-)
 
 set(CABLE_INTEL_Fortran_FLAGS -fp-model precise)
 set(CABLE_INTEL_Fortran_FLAGS_DEBUG -O0 -g -traceback -fpe0)
@@ -141,7 +136,7 @@ add_library(
     src/offline/spincasacnp.F90
 )
 target_compile_options(cable_common_objlib PRIVATE ${CABLE_Fortran_FLAGS})
-target_link_libraries(cable_common_objlib ${CABLE_LINK_LIBRARIES})
+target_link_libraries(cable_common_objlib PRIVATE PkgConfig::NETCDF)
 
 add_executable(
     cable
@@ -149,7 +144,7 @@ add_executable(
     "$<TARGET_OBJECTS:cable_common_objlib>"
 )
 target_compile_options(cable PRIVATE ${CABLE_Fortran_FLAGS})
-target_link_libraries(cable ${CABLE_LINK_LIBRARIES})
+target_link_libraries(cable PRIVATE PkgConfig::NETCDF)
 
 add_executable(
     cable-mpi
@@ -161,6 +156,6 @@ add_executable(
     "$<TARGET_OBJECTS:cable_common_objlib>"
 )
 target_compile_options(cable-mpi PRIVATE ${CABLE_Fortran_FLAGS})
-target_link_libraries(cable-mpi ${CABLE_LINK_LIBRARIES})
+target_link_libraries(cable-mpi PRIVATE PkgConfig::NETCDF MPI::MPI_Fortran)
 
 install(TARGETS cable cable-mpi RUNTIME)
