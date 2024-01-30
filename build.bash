@@ -48,6 +48,12 @@ if hostname -f | grep gadi.nci.org.au > /dev/null; then
     # This is required so that the netcdf-fortran library is discoverable by
     # pkg-config:
     prepend_path PKG_CONFIG_PATH "${NETCDF_BASE}/lib/Intel/pkgconfig"
+
+    if module is-loaded openmpi; then
+        # This is required so that the openmpi MPI libraries are discoverable
+        # via CMake's `find_package` mechanism:
+        prepend_path CMAKE_PREFIX_PATH "${OPENMPI_BASE}/include/Intel"
+    fi
 fi
 
 if [[ -n $clean ]]; then
