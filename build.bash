@@ -16,20 +16,25 @@ Options:
 EOF
 }
 
+cmake_args=(-DCMAKE_BUILD_TYPE=Release)
+cmake_build_args=()
+
 # Argument parsing adapted and stolen from http://mywiki.wooledge.org/BashFAQ/035#Complex_nonstandard_add-on_utilities
 while [ $# -gt 0 ]; do
     case $1 in
         --clean)
-            clean=1
+            rm -r build
             ;;
         --mpi)
             mpi=1
+            cmake_args+=(-DCABLE_MPI="ON")
+            cmake_args+=(-DCMAKE_Fortran_COMPILER="mpif90")
             ;;
         -d|--debug)
-            debug=1
+            cmake_args+=(-DCMAKE_BUILD_TYPE=Debug)
             ;;
         -v|--verbose)
-            verbose=1
+            cmake_build_args+=(-v)
             ;;
         -h|--help)
             show_help
@@ -54,26 +59,6 @@ if hostname -f | grep gadi.nci.org.au > /dev/null; then
     if [[ -n $mpi ]]; then
         module add intel-mpi/2019.5.281
     fi
-fi
-
-if [[ -n $clean ]]; then
-    rm -r build
-fi
-
-cmake_args=()
-if [[ -n $debug ]]; then
-    cmake_args+=(-DCMAKE_BUILD_TYPE=Debug)
-else
-    cmake_args+=(-DCMAKE_BUILD_TYPE=Release)
-fi
-if [[ -n $mpi ]]; then
-    cmake_args+=(-DCABLE_MPI="ON")
-    cmake_args+=(-DCMAKE_Fortran_COMPILER="mpif90")
-fi
-
-cmake_build_args=()
-if [[ -n $verbose ]]; then
-    cmake_build_args+=(-v)
 fi
 
 cmake -S . -B build "${cmake_args[@]}" &&\
