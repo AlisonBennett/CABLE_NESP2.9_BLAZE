@@ -27,6 +27,6 @@ Instead, CMake should query the required flags for a given library from the libr
 If these approaches are not supported by the external library, please report this as a bug to its maintainers. If the library is an open-source project, consider sending a patch.
 
 ???+ warning
-    CMake's `find_package` should be used in **Config** mode and only in **Module** mode only if the library is part of the [CMake module distribution](https://cmake.org/cmake/help/latest/manual/cmake-modules.7.html#manual:cmake-modules(7)).
+    For most cases, CMake's `find_package` should be used in **Config** mode. `find_package` in **Module** mode should only be used if the library is part of the [CMake module distribution](https://cmake.org/cmake/help/latest/manual/cmake-modules.7.html#manual:cmake-modules(7)).
 
 [CMakeLists.txt]: https://github.com/CABLE-LSM/CABLE/blob/main/CMakeLists.txt
