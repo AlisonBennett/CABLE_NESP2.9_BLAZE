@@ -1,23 +1,33 @@
 #!/bin/bash
 
+script_name=$(basename "${0}")
+
 show_help() {
     cat << EOF
-Usage: ./$(basename "${0}") [OPTIONS]
+Usage: ./$script_name [OPTIONS]
 
-Build script wrapper around CMake.
+Build script wrapper around CMake. Supplied arguments that do not match the
+options below will be passed to CMake when generating the build system.
 
 Options:
       --clean   Delete build directory before invoking CMake.
       --mpi     Compile MPI executable.
-  -d, --debug   Compile in debug mode.
-  -v, --verbose Enable verbose output when building the project.
   -h, --help    Show this screen.
+
+Enabling debug mode:
+
+  The release build is default. To enable debug mode, specify the CMake option
+  -DCMAKE_BUILD_TYPE=Debug when invoking $script_name.
+
+Enabling verbose output from Makefile builds:
+
+  To enable more verbose output from Makefile builds, specify the CMake option
+  -DCMAKE_VERBOSE_MAKEFILE=ON when invoking $script_name.
 
 EOF
 }
 
 cmake_args=(-DCMAKE_BUILD_TYPE=Release)
-cmake_build_args=()
 
 # Argument parsing adapted and stolen from http://mywiki.wooledge.org/BashFAQ/035#Complex_nonstandard_add-on_utilities
 while [ $# -gt 0 ]; do
@@ -30,18 +40,12 @@ while [ $# -gt 0 ]; do
             cmake_args+=(-DCABLE_MPI="ON")
             cmake_args+=(-DCMAKE_Fortran_COMPILER="mpif90")
             ;;
-        -d|--debug)
-            cmake_args+=(-DCMAKE_BUILD_TYPE=Debug)
-            ;;
-        -v|--verbose)
-            cmake_build_args+=(-v)
-            ;;
         -h|--help)
             show_help
             exit
             ;;
         ?*)
-            printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+            cmake_args+=("$1")
             ;;
     esac
     shift
@@ -62,5 +66,5 @@ if hostname -f | grep gadi.nci.org.au > /dev/null; then
 fi
 
 cmake -S . -B build "${cmake_args[@]}" &&\
-cmake --build build -j 4 "${cmake_build_args[@]}" &&\
+cmake --build build -j 4 &&\
 cmake --install build --prefix .
