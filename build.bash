@@ -63,7 +63,7 @@ fi
 
 if hostname -f | grep Seans-MacBook-Pro.local > /dev/null; then
     . /Users/seanbryan/dev_local/spack/share/spack/setup-env.sh
-    spack load cmake@3.27.9 netcdf-fortran@4.6.1 openmpi@5.0.2
+    spack load cmake@3.27.9 pkgconf@1.9.5 netcdf-fortran@4.6.1 openmpi@5.0.2
 fi
 
 cmake -S . -B build "${cmake_args[@]}" &&\
