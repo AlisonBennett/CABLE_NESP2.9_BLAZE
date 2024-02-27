@@ -232,155 +232,155 @@ MODULE landuse_variable
  
  CONTAINS
 
-  SUBROUTINE landuse_allocate_mland(mland,luc)
+  SUBROUTINE landuse_allocate_mland(mland_foo,luc)
   !! Allocates the `luc%%var(mland,mvmax)` variables
   !!
   !! **WARNING:** Need to use a separate ALLOCATE call for each array
    use landuse_constant
    IMPLICIT NONE
    TYPE(landuse_mland), INTENT(INOUT)  :: luc
-   integer  mland
+   integer  mland_foo
    ! patch-genric variables
-   ALLOCATE(luc%iveg_x(mland,mvmax),             &
-            luc%isoil_x(mland,mvmax),            &
-            luc%soilorder_x(mland,mvmax),        &
-            luc%phase_x(mland,mvmax),            &
-            luc%phen_x(mland,mvmax),             &
-            luc%aphen_x(mland,mvmax),            &
-            luc%doyphase3_x(mland,mvmax),        &
-            luc%frac_sapwood_x(mland,mvmax),     &
-            luc%sapwood_area_x(mland,mvmax),     &
-            luc%isflag_x(mland,mvmax),           &
-            luc%patchfrac_x(mland,mvmax),        &
-            luc%lai_x(mland,mvmax),              &
-            luc%sla_x(mland,mvmax))
+   ALLOCATE(luc%iveg_x(mland_foo,mvmax),             &
+            luc%isoil_x(mland_foo,mvmax),            &
+            luc%soilorder_x(mland_foo,mvmax),        &
+            luc%phase_x(mland_foo,mvmax),            &
+            luc%phen_x(mland_foo,mvmax),             &
+            luc%aphen_x(mland_foo,mvmax),            &
+            luc%doyphase3_x(mland_foo,mvmax),        &
+            luc%frac_sapwood_x(mland_foo,mvmax),     &
+            luc%sapwood_area_x(mland_foo,mvmax),     &
+            luc%isflag_x(mland_foo,mvmax),           &
+            luc%patchfrac_x(mland_foo,mvmax),        &
+            luc%lai_x(mland_foo,mvmax),              &
+            luc%sla_x(mland_foo,mvmax))
 
-   ALLOCATE(luc%iveg_y(mland,mvmax),             &
-            luc%isoil_y(mland,mvmax),            &
-            luc%soilorder_y(mland,mvmax),        &
-            luc%phase_y(mland,mvmax),            &
-            luc%phen_y(mland,mvmax),             &
-            luc%aphen_y(mland,mvmax),            &
-            luc%doyphase3_y(mland,mvmax),        &
-            luc%frac_sapwood_y(mland,mvmax),     &
-            luc%sapwood_area_y(mland,mvmax),     &
-            luc%isflag_y(mland,mvmax),           &
-            luc%patchfrac_y(mland,mvmax),        &
-            luc%lai_y(mland,mvmax),              &
-            luc%sla_y(mland,mvmax))
+   ALLOCATE(luc%iveg_y(mland_foo,mvmax),             &
+            luc%isoil_y(mland_foo,mvmax),            &
+            luc%soilorder_y(mland_foo,mvmax),        &
+            luc%phase_y(mland_foo,mvmax),            &
+            luc%phen_y(mland_foo,mvmax),             &
+            luc%aphen_y(mland_foo,mvmax),            &
+            luc%doyphase3_y(mland_foo,mvmax),        &
+            luc%frac_sapwood_y(mland_foo,mvmax),     &
+            luc%sapwood_area_y(mland_foo,mvmax),     &
+            luc%isflag_y(mland_foo,mvmax),           &
+            luc%patchfrac_y(mland_foo,mvmax),        &
+            luc%lai_y(mland_foo,mvmax),              &
+            luc%sla_y(mland_foo,mvmax))
 
     ! biophysical
-   ALLOCATE(luc%albsoilsn_x(mland,mvmax,nrb),   &
-            luc%albedo_x(mland,mvmax,nrb),      &
-            luc%albsoil_x(mland,mvmax,nrb),     &
-            luc%dgdtg_x(mland,mvmax),           &
-            luc%gammzz_x(mland,mvmax,ms),       &
-            luc%tgg_x(mland,mvmax,ms),          &
-            luc%wb_x(mland,mvmax,ms),           &
-            luc%wbice_x(mland,mvmax,ms),        &
-            luc%tggsn_x(mland,mvmax,msn),       &
-            luc%ssdn_x(mland,mvmax,msn),        &
-            luc%smass_x(mland,mvmax,msn),       &
-            luc%sdepth_x(mland,mvmax,msn),      &
-            luc%tss_x(mland,mvmax),             &
-            luc%rtsoil_x(mland,mvmax),          &
-            luc%runoff_x(mland,mvmax),          &
-            luc%rnof1_x(mland,mvmax),           &
-            luc%rnof2_x(mland,mvmax),           &
-            luc%ssdnn_x(mland,mvmax),           &
-            luc%snowd_x(mland,mvmax),           &
-            luc%snage_x(mland,mvmax),           &
-            luc%osnowd_x(mland,mvmax),          &
-            luc%cansto_x(mland,mvmax),          &
-            luc%ghflux_x(mland,mvmax),          &
-            luc%sghflux_x(mland,mvmax),         &
-            luc%ga_x(mland,mvmax),              &
-            luc%fev_x(mland,mvmax),             &
-            luc%fes_x(mland,mvmax),             &
-            luc%fhs_x(mland,mvmax),             &
-            luc%wbtot0_x(mland,mvmax),          &
-            luc%osnowd0_x(mland,mvmax),         & 
-            luc%trad_x(mland,mvmax),            &
-            luc%GWwb_x(mland,mvmax),            &
-            luc%cplantx_x(mland,mvmax,ncp),     &
-            luc%csoilx_x(mland,mvmax,ncs))
+   ALLOCATE(luc%albsoilsn_x(mland_foo,mvmax,nrb),   &
+            luc%albedo_x(mland_foo,mvmax,nrb),      &
+            luc%albsoil_x(mland_foo,mvmax,nrb),     &
+            luc%dgdtg_x(mland_foo,mvmax),           &
+            luc%gammzz_x(mland_foo,mvmax,ms),       &
+            luc%tgg_x(mland_foo,mvmax,ms),          &
+            luc%wb_x(mland_foo,mvmax,ms),           &
+            luc%wbice_x(mland_foo,mvmax,ms),        &
+            luc%tggsn_x(mland_foo,mvmax,msn),       &
+            luc%ssdn_x(mland_foo,mvmax,msn),        &
+            luc%smass_x(mland_foo,mvmax,msn),       &
+            luc%sdepth_x(mland_foo,mvmax,msn),      &
+            luc%tss_x(mland_foo,mvmax),             &
+            luc%rtsoil_x(mland_foo,mvmax),          &
+            luc%runoff_x(mland_foo,mvmax),          &
+            luc%rnof1_x(mland_foo,mvmax),           &
+            luc%rnof2_x(mland_foo,mvmax),           &
+            luc%ssdnn_x(mland_foo,mvmax),           &
+            luc%snowd_x(mland_foo,mvmax),           &
+            luc%snage_x(mland_foo,mvmax),           &
+            luc%osnowd_x(mland_foo,mvmax),          &
+            luc%cansto_x(mland_foo,mvmax),          &
+            luc%ghflux_x(mland_foo,mvmax),          &
+            luc%sghflux_x(mland_foo,mvmax),         &
+            luc%ga_x(mland_foo,mvmax),              &
+            luc%fev_x(mland_foo,mvmax),             &
+            luc%fes_x(mland_foo,mvmax),             &
+            luc%fhs_x(mland_foo,mvmax),             &
+            luc%wbtot0_x(mland_foo,mvmax),          &
+            luc%osnowd0_x(mland_foo,mvmax),         & 
+            luc%trad_x(mland_foo,mvmax),            &
+            luc%GWwb_x(mland_foo,mvmax),            &
+            luc%cplantx_x(mland_foo,mvmax,ncp),     &
+            luc%csoilx_x(mland_foo,mvmax,ncs))
 
-   ALLOCATE(luc%albsoilsn_y(mland,mvmax,nrb),   &
-            luc%albedo_y(mland,mvmax,nrb),      &
-            luc%albsoil_y(mland,mvmax,nrb),     &
-            luc%dgdtg_y(mland,mvmax),           &
-            luc%gammzz_y(mland,mvmax,ms),       &
-            luc%tgg_y(mland,mvmax,ms),          &
-            luc%wb_y(mland,mvmax,ms),           &
-            luc%wbice_y(mland,mvmax,ms),        &
-            luc%tggsn_y(mland,mvmax,msn),       &
-            luc%ssdn_y(mland,mvmax,msn),        &
-            luc%smass_y(mland,mvmax,msn),       &
-            luc%sdepth_y(mland,mvmax,msn),      &
-            luc%tss_y(mland,mvmax),             &
-            luc%rtsoil_y(mland,mvmax),          &
-            luc%runoff_y(mland,mvmax),          &
-            luc%rnof1_y(mland,mvmax),           &
-            luc%rnof2_y(mland,mvmax),           &
-            luc%ssdnn_y(mland,mvmax),           &
-            luc%snowd_y(mland,mvmax),           &
-            luc%snage_y(mland,mvmax),           &
-            luc%osnowd_y(mland,mvmax),          &
-            luc%cansto_y(mland,mvmax),          &
-            luc%ghflux_y(mland,mvmax),          &
-            luc%sghflux_y(mland,mvmax),         &
-            luc%ga_y(mland,mvmax),              &
-            luc%fev_y(mland,mvmax),             &
-            luc%fes_y(mland,mvmax),             &
-            luc%fhs_y(mland,mvmax),             &
-            luc%wbtot0_y(mland,mvmax),          &
-            luc%osnowd0_y(mland,mvmax),         & 
-            luc%trad_y(mland,mvmax),            &
-            luc%GWwb_y(mland,mvmax),            &
-            luc%cplantx_y(mland,mvmax,ncp),     &
-            luc%csoilx_y(mland,mvmax,ncs))
+   ALLOCATE(luc%albsoilsn_y(mland_foo,mvmax,nrb),   &
+            luc%albedo_y(mland_foo,mvmax,nrb),      &
+            luc%albsoil_y(mland_foo,mvmax,nrb),     &
+            luc%dgdtg_y(mland_foo,mvmax),           &
+            luc%gammzz_y(mland_foo,mvmax,ms),       &
+            luc%tgg_y(mland_foo,mvmax,ms),          &
+            luc%wb_y(mland_foo,mvmax,ms),           &
+            luc%wbice_y(mland_foo,mvmax,ms),        &
+            luc%tggsn_y(mland_foo,mvmax,msn),       &
+            luc%ssdn_y(mland_foo,mvmax,msn),        &
+            luc%smass_y(mland_foo,mvmax,msn),       &
+            luc%sdepth_y(mland_foo,mvmax,msn),      &
+            luc%tss_y(mland_foo,mvmax),             &
+            luc%rtsoil_y(mland_foo,mvmax),          &
+            luc%runoff_y(mland_foo,mvmax),          &
+            luc%rnof1_y(mland_foo,mvmax),           &
+            luc%rnof2_y(mland_foo,mvmax),           &
+            luc%ssdnn_y(mland_foo,mvmax),           &
+            luc%snowd_y(mland_foo,mvmax),           &
+            luc%snage_y(mland_foo,mvmax),           &
+            luc%osnowd_y(mland_foo,mvmax),          &
+            luc%cansto_y(mland_foo,mvmax),          &
+            luc%ghflux_y(mland_foo,mvmax),          &
+            luc%sghflux_y(mland_foo,mvmax),         &
+            luc%ga_y(mland_foo,mvmax),              &
+            luc%fev_y(mland_foo,mvmax),             &
+            luc%fes_y(mland_foo,mvmax),             &
+            luc%fhs_y(mland_foo,mvmax),             &
+            luc%wbtot0_y(mland_foo,mvmax),          &
+            luc%osnowd0_y(mland_foo,mvmax),         & 
+            luc%trad_y(mland_foo,mvmax),            &
+            luc%GWwb_y(mland_foo,mvmax),            &
+            luc%cplantx_y(mland_foo,mvmax,ncp),     &
+            luc%csoilx_y(mland_foo,mvmax,ncs))
 
     ! biogeochemical variables
-   ALLOCATE(luc%cplant_x(mland,mvmax,mplant),    &
-            luc%nplant_x(mland,mvmax,mplant),    &
-            luc%pplant_x(mland,mvmax,mplant),    &
-            luc%clitter_x(mland,mvmax,mlitter),  &
-            luc%nlitter_x(mland,mvmax,mlitter),  &
-            luc%plitter_x(mland,mvmax,mlitter),  &
-            luc%csoil_x(mland,mvmax,msoil),      &
-            luc%nsoil_x(mland,mvmax,msoil),      &
-            luc%psoil_x(mland,mvmax,msoil),      &
-            luc%clabile_x(mland,mvmax),          &
-            luc%nsoilmin_x(mland,mvmax),         &
-            luc%psoillab_x(mland,mvmax),         &
-            luc%psoilsorb_x(mland,mvmax),        &
-            luc%psoilocc_x(mland,mvmax),         &
-            luc%cwoodprod_x(mland,mvmax,mwood),  &
-            luc%nwoodprod_x(mland,mvmax,mwood),  &
-            luc%pwoodprod_x(mland,mvmax,mwood),  &
-            luc%cplant_y(mland,mvmax,mplant),    &
-            luc%nplant_y(mland,mvmax,mplant),    &
-            luc%pplant_y(mland,mvmax,mplant),    &
-            luc%clitter_y(mland,mvmax,mlitter),  &
-            luc%nlitter_y(mland,mvmax,mlitter),  &
-            luc%plitter_y(mland,mvmax,mlitter),  &
-            luc%csoil_y(mland,mvmax,msoil),      &
-            luc%nsoil_y(mland,mvmax,msoil),      &
-            luc%psoil_y(mland,mvmax,msoil),      &
-            luc%clabile_y(mland,mvmax),          &
-            luc%nsoilmin_y(mland,mvmax),         &
-            luc%psoillab_y(mland,mvmax),         &
-            luc%psoilsorb_y(mland,mvmax),        &
-            luc%psoilocc_y(mland,mvmax),         &
-            luc%cwoodprod_y(mland,mvmax,mwood),  &
-            luc%nwoodprod_y(mland,mvmax,mwood),  &
-            luc%pwoodprod_y(mland,mvmax,mwood))
+   ALLOCATE(luc%cplant_x(mland_foo,mvmax,mplant),    &
+            luc%nplant_x(mland_foo,mvmax,mplant),    &
+            luc%pplant_x(mland_foo,mvmax,mplant),    &
+            luc%clitter_x(mland_foo,mvmax,mlitter),  &
+            luc%nlitter_x(mland_foo,mvmax,mlitter),  &
+            luc%plitter_x(mland_foo,mvmax,mlitter),  &
+            luc%csoil_x(mland_foo,mvmax,msoil),      &
+            luc%nsoil_x(mland_foo,mvmax,msoil),      &
+            luc%psoil_x(mland_foo,mvmax,msoil),      &
+            luc%clabile_x(mland_foo,mvmax),          &
+            luc%nsoilmin_x(mland_foo,mvmax),         &
+            luc%psoillab_x(mland_foo,mvmax),         &
+            luc%psoilsorb_x(mland_foo,mvmax),        &
+            luc%psoilocc_x(mland_foo,mvmax),         &
+            luc%cwoodprod_x(mland_foo,mvmax,mwood),  &
+            luc%nwoodprod_x(mland_foo,mvmax,mwood),  &
+            luc%pwoodprod_x(mland_foo,mvmax,mwood),  &
+            luc%cplant_y(mland_foo,mvmax,mplant),    &
+            luc%nplant_y(mland_foo,mvmax,mplant),    &
+            luc%pplant_y(mland_foo,mvmax,mplant),    &
+            luc%clitter_y(mland_foo,mvmax,mlitter),  &
+            luc%nlitter_y(mland_foo,mvmax,mlitter),  &
+            luc%plitter_y(mland_foo,mvmax,mlitter),  &
+            luc%csoil_y(mland_foo,mvmax,msoil),      &
+            luc%nsoil_y(mland_foo,mvmax,msoil),      &
+            luc%psoil_y(mland_foo,mvmax,msoil),      &
+            luc%clabile_y(mland_foo,mvmax),          &
+            luc%nsoilmin_y(mland_foo,mvmax),         &
+            luc%psoillab_y(mland_foo,mvmax),         &
+            luc%psoilsorb_y(mland_foo,mvmax),        &
+            luc%psoilocc_y(mland_foo,mvmax),         &
+            luc%cwoodprod_y(mland_foo,mvmax,mwood),  &
+            luc%nwoodprod_y(mland_foo,mvmax,mwood),  &
+            luc%pwoodprod_y(mland_foo,mvmax,mwood))
 
     ! land-use variables
-   ALLOCATE(luc%pftfrac(mland,mvtype),           &
-            luc%fharvw(mland,mharvw),            &
-            luc%xluh2cable(mland,mvmax,mstate),  &
-            luc%atransit(mland,mvmax,mvmax))
+   ALLOCATE(luc%pftfrac(mland_foo,mvtype),           &
+            luc%fharvw(mland_foo,mharvw),            &
+            luc%xluh2cable(mland_foo,mvmax,mstate),  &
+            luc%atransit(mland_foo,mvmax,mvmax))
 
     !        luc%phen_y(mland,mvmax),             &
     !        luc%aphen_y(mland,mvmax),            &
